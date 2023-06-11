@@ -14,7 +14,7 @@ secret_token = os.getenv('TOKEN')
 mykey = os.getenv('KEY')
 link = os.getenv('LINK')
 googlesheet_id = os.getenv('GOOGLE')
-gc = gspread.service_account(filename='D:\egobot\gspread\service_account.json')
+gc = gspread.service_account(filename='service_account.json')
 
 buttons = ReplyKeyboardMarkup([['/book'],
                                    ['/rebook', '/feedback']
