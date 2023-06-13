@@ -11,5 +11,4 @@ venv.bak/
 .idea
 
 # Ссылки
-/egobot/links.py
-.links
+links.py
