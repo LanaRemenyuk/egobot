@@ -6,10 +6,9 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-git.html
 
 # Папки, создаваемые средой разработки
 .idea
 
 # Ссылки
-links
+links.py
