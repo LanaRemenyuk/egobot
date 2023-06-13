@@ -11,4 +11,4 @@ venv.bak/
 .idea
 
 # Ссылки
-/links.py
+links.py/
