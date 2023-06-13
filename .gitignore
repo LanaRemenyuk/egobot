@@ -6,9 +6,5 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
-# Папки, создаваемые средой разработки
 .idea
-
-# Ссылки
-links.py/
+links.py
