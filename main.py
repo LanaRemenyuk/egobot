@@ -16,6 +16,7 @@ link = os.getenv('LINK')
 googlesheet_id = os.getenv('GOOGLE')
 table = os.getenv('TABLE')
 table2 = os.getenv('TABLE2')
+table3 = os.getenv('TABLE3')
 gc = gspread.service_account(filename='service_account.json')
 
 buttons = ReplyKeyboardMarkup([['/book'],
@@ -54,6 +55,14 @@ def say_hi(update, context):
 
 def send_schedule(update, context):
     chat = update.effective_chat
+    user_name = update.message.chat.username
+    name = update.message.chat.first_name + ' ' + update.message.chat.last_name
+    user_id = update.message.chat.id
+    today = date.today().strftime("%d.%m.%Y")
+    sh = gc.open_by_url(
+        table3).worksheet(
+        'sheet4')
+    sh.append_row([today, name, user_name, user_id])
     context.bot.send_message(chat.id, links,
                              parse_mode='Markdown')
 
