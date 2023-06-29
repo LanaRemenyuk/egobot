@@ -150,10 +150,12 @@ def feedback_taken(bot, update):
     update.user_data['get_feedback'] = bot.message.text
     get_feedback = bot.message.text
     name = bot.message.from_user.username
+    fullname = bot.message.from_user.first_name + ' ' + bot.message.from_user.last_name
+    user_id = bot.message.from_user.id
     today = date.today().strftime("%d.%m.%Y")
     sh = gc.open_by_url(
         table).worksheet('sheet2')
-    sh.append_row([today, name,  get_feedback])
+    sh.append_row([today, name, fullname, user_id,  get_feedback])
     bot.message.reply_text('Thanks for your feedback! 😸', reply_markup=buttons)
     return ConversationHandler.END
 
@@ -167,11 +169,13 @@ def unbooking_taken(bot, update):
     update.user_data['get_unbooked'] = bot.message.text
     get_unbooked = bot.message.text
     name = bot.message.from_user.username
+    fullname = bot.message.from_user.first_name + ' ' + bot.message.from_user.last_name
+    user_id = bot.message.from_user.id
     today = date.today().strftime("%d.%m.%Y")
     sh = gc.open_by_url(
         table2).worksheet(
         'sheet3')
-    sh.append_row([today, name, get_unbooked])
+    sh.append_row([today, name, fullname, user_id, get_unbooked])
     bot.message.reply_text('Done ✅ Our manager will contact you!', reply_markup=buttons)
     return ConversationHandler.END
 
