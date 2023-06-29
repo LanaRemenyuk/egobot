@@ -184,16 +184,16 @@ updater.dispatcher.add_handler(
     ConversationHandler(entry_points=[CommandHandler('feedback', get_feedback)],
                         states={'get_feedback': [MessageHandler(Filters.text, feedback_taken)]},
                         fallbacks=[MessageHandler(
-                                    Filters.video | Filters.photo | Filters.document, dontknow)]
+                                    Filters.video | Filters.photo | Filters.document | Filters.sticker, dontknow)]
                                 )
 )
 updater.dispatcher.add_handler(
     ConversationHandler(entry_points=[CommandHandler('rebook', get_unbooked)],
                         states={'get_unbooked': [MessageHandler(Filters.text, unbooking_taken)]},
                         fallbacks=[MessageHandler(
-                                    Filters.video | Filters.photo | Filters.document, dontknow)]
+                                    Filters.video | Filters.photo | Filters.document | Filters.sticker, dontknow)]
                                 )
 )
-updater.dispatcher.add_handler(MessageHandler(Filters.text, start))
+updater.dispatcher.add_handler(MessageHandler(Filters.text | Filters.sticker, start))
 updater.start_polling()
 updater.idle()
