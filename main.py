@@ -14,6 +14,8 @@ secret_token = os.getenv('TOKEN')
 mykey = os.getenv('KEY')
 link = os.getenv('LINK')
 googlesheet_id = os.getenv('GOOGLE')
+table = os.getenv('TABLE')
+table2 = os.getenv('TABLE2')
 gc = gspread.service_account(filename='service_account.json')
 
 buttons = ReplyKeyboardMarkup([['/book'],
@@ -67,7 +69,7 @@ def polling_get_name(bot, update):
     user_name = bot.message.text
     today = date.today().strftime("%d.%m.%Y")
     sh = gc.open_by_url(
-        'https://docs.google.com/spreadsheets/d/1IOAJVfXKZu0dIPT13zWw1_IMIeW2TubND2PMMlnuTMQ/edit#gid=0')
+        table)
     sh.sheet1.append_row([today, user_name])
     return 'user_email'
 
@@ -77,7 +79,7 @@ def polling_get_email(bot, update):
     user_email = bot.message.text
     column = 3
     sh = gc.open_by_url(
-        'https://docs.google.com/spreadsheets/d/1IOAJVfXKZu0dIPT13zWw1_IMIeW2TubND2PMMlnuTMQ/edit#gid=0')
+        table)
     last_row = len(sh.sheet1.get_all_values())
     sh.sheet1.update_cell(last_row, column, user_email)
     bot.message.reply_text('What is your phone number?'),
@@ -89,7 +91,7 @@ def polling_get_phone(bot, update):
     user_phone = bot.message.text
     column = 4
     sh = gc.open_by_url(
-        'https://docs.google.com/spreadsheets/d/1IOAJVfXKZu0dIPT13zWw1_IMIeW2TubND2PMMlnuTMQ/edit#gid=0')
+        table)
     last_row = len(sh.sheet1.get_all_values())
     sh.sheet1.update_cell(last_row, column, user_phone)
     bot.message.reply_text('What company do you work for?')
@@ -101,7 +103,7 @@ def polling_get_company(bot, update):
     company_name = bot.message.text
     column = 5
     sh = gc.open_by_url(
-        'https://docs.google.com/spreadsheets/d/1IOAJVfXKZu0dIPT13zWw1_IMIeW2TubND2PMMlnuTMQ/edit#gid=0')
+        table)
     last_row = len(sh.sheet1.get_all_values())
     sh.sheet1.update_cell(last_row, column, company_name)
     reply_keyboard = ReplyKeyboardMarkup([['/yes'],
@@ -116,7 +118,7 @@ def see_you(bot, update):
     come_soon = bot.message.text
     column = 6
     sh = gc.open_by_url(
-        'https://docs.google.com/spreadsheets/d/1IOAJVfXKZu0dIPT13zWw1_IMIeW2TubND2PMMlnuTMQ/edit#gid=0')
+        table)
     last_row = len(sh.sheet1.get_all_values())
     sh.sheet1.update_cell(last_row, column, come_soon)
     if bot.message.text == '/yes':
@@ -132,7 +134,7 @@ def polling_exit(bot, update):
     planned = bot.message.text
     column = 7
     sh = gc.open_by_url(
-        'https://docs.google.com/spreadsheets/d/1IOAJVfXKZu0dIPT13zWw1_IMIeW2TubND2PMMlnuTMQ/edit#gid=0')
+        table)
     last_row = len(sh.sheet1.get_all_values())
     sh.sheet1.update_cell(last_row, column, planned)
     bot.message.reply_text('All set! We\'ll send you the reminder! ✅', reply_markup=buttons)
@@ -150,7 +152,7 @@ def feedback_taken(bot, update):
     name = bot.message.from_user.username
     today = date.today().strftime("%d.%m.%Y")
     sh = gc.open_by_url(
-        'https://docs.google.com/spreadsheets/d/1IOAJVfXKZu0dIPT13zWw1_IMIeW2TubND2PMMlnuTMQ/edit#gid=1928277420').worksheet('sheet2')
+        table).worksheet('sheet2')
     sh.append_row([today, name,  get_feedback])
     bot.message.reply_text('Thanks for your feedback! 😸', reply_markup=buttons)
     return ConversationHandler.END
@@ -167,7 +169,7 @@ def unbooking_taken(bot, update):
     name = bot.message.from_user.username
     today = date.today().strftime("%d.%m.%Y")
     sh = gc.open_by_url(
-        'https://docs.google.com/spreadsheets/d/1IOAJVfXKZu0dIPT13zWw1_IMIeW2TubND2PMMlnuTMQ/edit#gid=1928277420').worksheet(
+        table2).worksheet(
         'sheet3')
     sh.append_row([today, name, get_unbooked])
     bot.message.reply_text('Done ✅ Our manager will contact you!', reply_markup=buttons)
